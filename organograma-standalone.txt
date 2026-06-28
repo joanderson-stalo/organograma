@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONFRAPAG - Organograma de Tecnologia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
+            min-height: 100vh;
+            overflow-x: auto;
+        }
+
+        .container {
+            min-width: max-content;
+            margin: 0 auto;
+            padding: 2rem 2rem 3rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo {
+            width: 2.5rem;
+            height: 2.5rem;
+            color: #2563eb;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .instruction {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+
+        .cto-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .cto-card {
+            background: #2563eb;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cto-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        .cto-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-bottom: 0.25rem;
+        }
+
+        .cto-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .org-chart {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .vertical-line {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .line-v {
+            width: 2px;
+            height: 3rem;
+            background: #94a3b8;
+        }
+
+        .departments-container {
+            position: relative;
+            width: 1500px;
+        }
+
+        .horizontal-line {
+            position: absolute;
+            top: 0;
+            left: 3rem;
+            right: 3rem;
+            height: 2px;
+            background: #94a3b8;
+        }
+
+        .departments {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem 1rem 0;
+            gap: 0.5rem;
+        }
+
+        .dept-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .line-v-small {
+            position: absolute;
+            left: 50%;
+            top: -2rem;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 2rem;
+            background: #94a3b8;
+        }
+
+        .dept-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem;
+            width: 11rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-top: 4px solid;
+        }
+
+        .dept-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-0.5rem);
+        }
+
+        .dept-header {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .dept-title {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: #1e293b;
+            flex: 1;
+            line-height: 1.2;
+        }
+
+        .chevron {
+            width: 0.75rem;
+            height: 0.75rem;
+            color: #cbd5e1;
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+
+        .dept-manager {
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .manager-name {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #334155;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .manager-name.vacant {
+            color: #ef4444;
+            font-style: italic;
+        }
+
+        .dept-info {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .icon-users {
+            width: 0.75rem;
+            height: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .dept-info span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .vacant-count {
+            font-size: 0.75rem;
+            color: #ef4444;
+            margin-top: 0.25rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #2563eb;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .section-text {
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .team-member {
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+        }
+
+        .member-name {
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: #1e293b;
+        }
+
+        .member-name.vacant {
+            color: #ef4444;
+            font-style: italic;
+        }
+
+        .member-role {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .objectives-list {
+            list-style: none;
+        }
+
+        .objectives-list li {
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            color: #334155;
+        }
+
+        .bullet {
+            color: #2563eb;
+            margin-top: 0.25rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: white;
+        }
+
+        .detail-view {
+            display: none;
+        }
+
+        .detail-view.active {
+            display: block;
+        }
+
+        .home-view.hidden {
+            display: none;
+        }
+
+        /* Colors */
+        .color-teal { border-top-color: #0d9488; }
+        .color-blue { border-top-color: #2563eb; }
+        .color-purple { border-top-color: #9333ea; }
+        .color-cyan { border-top-color: #0891b2; }
+        .color-indigo { border-top-color: #4f46e5; }
+        .color-orange { border-top-color: #ea580c; }
+        .color-violet { border-top-color: #7c3aed; }
+
+        .bg-teal { background: #0d9488; }
+        .bg-blue { background: #2563eb; }
+        .bg-purple { background: #9333ea; }
+        .bg-cyan { background: #0891b2; }
+        .bg-indigo { background: #4f46e5; }
+        .bg-orange { background: #ea580c; }
+        .bg-violet { background: #7c3aed; }
+    </style>
+</head>
+<body>
+    <!-- Home View -->
+    <div id="homeView" class="home-view">
+        <div class="container">
+            <div class="header">
+                <div class="header-title">
+                    <svg class="logo" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                    <h1>CONFRAPAG</h1>
+                </div>
+                <p class="subtitle">Organograma de Tecnologia</p>
+                <p class="instruction">Clique em cada área para ver informações detalhadas</p>
+            </div>
+
+            <div class="cto-box">
+                <div class="cto-card" onclick="showDetail('cto')">
+                    <p class="cto-label">CTO</p>
+                    <p class="cto-name">Lettiery</p>
+                </div>
+            </div>
+
+            <div class="vertical-line">
+                <div class="line-v"></div>
+            </div>
+
+            <div class="org-chart">
+                <div class="departments-container">
+                    <div class="horizontal-line"></div>
+                    <div class="departments" id="departments"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail View -->
+    <div id="detailView" class="detail-view"></div>
+
+    <script>
+        // Dados completos omitidos para economizar espaço
+        // Veja o arquivo completo no repositório
+
+        const departments = [
+            {
+                id: 'products',
+                title: 'Produtos',
+                manager: { name: 'Vaga aberta', role: 'Gestor de Produtos - PM', vacant: true },
+                team: [
+                    { name: 'Stephany', role: 'Product Owner - PO' },
+                    { name: 'Cainã Sena', role: 'Especialista em Implementação Técnica' },
+                ],
+                description: 'PMO, cronogramas e governança de produtos',
+                color: 'teal',
+            },
+            // ... outros departamentos
+        ];
+
+        function renderDepartments() {
+            const container = document.getElementById('departments');
+            departments.forEach(dept => {
+                const teamCount = dept.team.length + (dept.manager ? 1 : 0);
+                const vacantCount = dept.team.filter(p => p.vacant).length + (dept.manager?.vacant ? 1 : 0);
+
+                const card = `
+                    <div class="dept-wrapper">
+                        <div class="line-v-small"></div>
+                        <div class="dept-card color-${dept.color}" onclick="showDetail('${dept.id}')">
+                            <div class="dept-header">
+                                <h3 class="dept-title">${dept.title}</h3>
+                                <svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                            ${dept.manager ? `
+                                <div class="dept-manager">
+                                    <p class="manager-name ${dept.manager.vacant ? 'vacant' : ''}">${dept.manager.name}</p>
+                                </div>
+                            ` : ''}
+                            <div class="dept-info">
+                                <svg class="icon-users" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                </svg>
+                                <span>${teamCount} pessoas</span>
+                            </div>
+                            ${vacantCount > 0 ? `<div class="vacant-count">${vacantCount} vaga${vacantCount > 1 ? 's' : ''}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        function showDetail(id) {
+            // Lógica de navegação para página de detalhes
+            document.getElementById('homeView').classList.add('hidden');
+            document.getElementById('detailView').classList.add('active');
+        }
+
+        function hideDetail() {
+            document.getElementById('homeView').classList.remove('hidden');
+            document.getElementById('detailView').classList.remove('active');
+        }
+
+        // Initialize
+        renderDepartments();
+    </script>
+</body>
+</html>
