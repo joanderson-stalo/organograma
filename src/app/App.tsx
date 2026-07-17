@@ -19,6 +19,7 @@ interface Department {
   description: string;
   responsibilities: string[];
   color: string;
+  reportsToCto?: boolean;
 }
 
 interface DetailedInfo {
@@ -63,9 +64,7 @@ const departments: Department[] = [
     id: 'ia',
     title: 'IA - ASO',
     manager: { name: 'Eduardo', role: 'ASO Manager' },
-    coordinator: { name: 'Nayane', role: 'Support Coordinator' },
     team: [
-      { name: 'Filipe Paulo', role: 'Engenheiro de Machine Learning - ML' },
       { name: 'Paulo Victor', role: 'Engenheiro de Machine Learning - ML' },
       { name: 'Vaga aberta', role: 'Engenheiro de Machine Learning - ML', vacant: true },
       { name: 'Vaga aberta', role: 'Engenheiro de Machine Learning - ML', vacant: true },
@@ -74,6 +73,20 @@ const departments: Department[] = [
     description: 'Inteligência Artificial e Automação',
     responsibilities: ['Automações', 'IA generativa', 'Machine Learning', 'AIOps'],
     color: 'bg-purple-600',
+  },
+  {
+    id: 'support-n3',
+    title: 'Suporte N3',
+    manager: { name: 'Nayane', role: 'Support Coordinator' },
+    team: [
+      { name: 'Filipe Paulo', role: 'Support Agent' },
+      { name: 'Vaga aberta', role: 'Support Agent', vacant: true },
+      { name: 'Vaga aberta', role: 'Support Agent', vacant: true },
+    ],
+    description: 'Suporte técnico nível 3 e resolução avançada',
+    responsibilities: ['Atendimento N3', 'Diagnóstico avançado', 'Escalonamento técnico', 'Suporte a áreas internas'],
+    color: 'bg-rose-600',
+    reportsToCto: false,
   },
   {
     id: 'engineering',
@@ -99,7 +112,7 @@ const departments: Department[] = [
   {
     id: 'ux',
     title: 'UX / Design',
-    manager: { name: 'Aline Vilar', role: 'Product Design Manager' },
+    lead: { name: 'Aline Vilar', role: 'Lead Designer' },
     team: [
       { name: 'Tatyana Medeiros', role: 'UX/UI' },
       { name: 'Vanessa Galeno', role: 'UX/UI' },
@@ -470,8 +483,8 @@ const detailedInfo: Record<string, DetailedInfo> = {
     ],
     roles: [
       {
-        title: 'Product Design Manager',
-        description: 'Responsável pela liderança de design de produto e pela estratégia de UX/UI.',
+        title: 'Lead Designer',
+        description: 'Responsável pela liderança técnica de design e pela direção de experiência do usuário.',
         responsibilities: [
           'Definir a visão e os padrões de design de produto',
           'Liderar a equipe de UX/UI',
@@ -634,6 +647,42 @@ const detailedInfo: Record<string, DetailedInfo> = {
       { area: 'Engenharia de Software', description: 'Integração de modelos de IA nas aplicações' },
       { area: 'Sustentação', description: 'Automação de processos de manutenção' },
       { area: 'CTO', description: 'Direcionamento estratégico de iniciativas de IA' },
+    ],
+  },
+  'support-n3': {
+    overview: 'A área de Suporte N3 é responsável pelo atendimento técnico de nível 3, com foco em diagnósticos avançados, resolução de incidentes complexos e apoio especializado às demais áreas. Opera de forma independente da estrutura sob o CTO.',
+    objectives: [
+      'Atendimento e resolução de demandas de suporte N3',
+      'Diagnóstico avançado de problemas técnicos',
+      'Escalonamento e tratamento de incidentes complexos',
+      'Apoio técnico especializado às áreas internas',
+    ],
+    roles: [
+      {
+        title: 'Support Coordinator',
+        description: 'Responsável pela coordenação do suporte N3 e priorização das demandas.',
+        responsibilities: [
+          'Coordenar a equipe de Suporte N3',
+          'Priorizar e distribuir incidentes complexos',
+          'Garantir qualidade e SLA do atendimento N3',
+          'Facilitar comunicação com áreas técnicas',
+        ],
+      },
+      {
+        title: 'Support Agent',
+        description: 'Responsável pelo atendimento e resolução de demandas de suporte N3.',
+        responsibilities: [
+          'Atender e resolver incidentes de nível 3',
+          'Realizar diagnósticos técnicos avançados',
+          'Documentar problemas e soluções',
+          'Escalar demandas quando necessário',
+        ],
+      },
+    ],
+    relationships: [
+      { area: 'Sustentação', description: 'Encaminhamento de correções e ajustes em sistemas' },
+      { area: 'Engenharia de Software', description: 'Apoio em investigações técnicas profundas' },
+      { area: 'IA - ASO', description: 'Colaboração em automações e inteligências aplicadas ao suporte' },
     ],
   },
   lab: {
@@ -1007,12 +1056,12 @@ export default function App() {
           <div className="w-0.5 h-12 bg-slate-400"></div>
         </div>
 
-        {/* Horizontal Line connecting all departments */}
-        <div className="flex justify-center mb-8">
+        {/* Horizontal Line connecting CTO departments */}
+        <div className="flex justify-center mb-12">
           <div className="relative" style={{ width: '1500px' }}>
             <div className="absolute top-0 left-12 right-12 h-0.5 bg-slate-400"></div>
             <div className="flex justify-between pt-8 px-4 gap-2">
-              {departments.map((dept) => (
+              {departments.filter((dept) => dept.reportsToCto !== false).map((dept) => (
                 <div key={dept.id} className="relative flex flex-col items-center">
                   <div className="absolute left-1/2 -translate-x-1/2 -top-8 w-0.5 h-8 bg-slate-400"></div>
                   <DepartmentCard dept={dept} />
@@ -1021,6 +1070,18 @@ export default function App() {
             </div>
           </div>
         </div>
+
+        {/* Áreas independentes (sem vínculo ao CTO) */}
+        {departments.some((dept) => dept.reportsToCto === false) && (
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-sm font-medium text-slate-500 uppercase tracking-wide">?</p>
+            <div className="flex justify-center gap-4 flex-wrap">
+              {departments.filter((dept) => dept.reportsToCto === false).map((dept) => (
+                <DepartmentCard key={dept.id} dept={dept} />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
