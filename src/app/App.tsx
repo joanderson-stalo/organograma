@@ -12,6 +12,7 @@ interface Department {
   title: string;
   head?: Person;
   manager?: Person;
+  lead?: Person;
   coordinator?: Person;
   staff?: Person[];
   team: Person[];
@@ -78,16 +79,17 @@ const departments: Department[] = [
     id: 'engineering',
     title: 'Engenharia de Software',
     manager: { name: 'Joanderson Silva', role: 'Engineering Manager' },
+    lead: { name: 'Rodrigo Henrique', role: 'Lead Engineer' },
     staff: [
-      { name: 'Rodrigo Henrique', role: 'Staff Engineering' },
       { name: 'Levi Santos', role: 'Staff Engineering' },
+      { name: 'Marcelo Gomes', role: 'Staff Engineering' },
     ],
     team: [
       { name: 'Anderson Melo', role: 'Engenheiro de Softwares - SE' },
       { name: 'Lucas Araujo', role: 'Engenheiro de Softwares - SE' },
-      { name: 'Marcelo Gomes', role: 'Engenheiro de Softwares - SE' },
       { name: 'Murilo Doria', role: 'Engenheiro de Softwares - SE' },
       { name: 'Rozângela Silva', role: 'Engenheiro de Softwares - SE' },
+      { name: 'Vaga aberta', role: 'Engenheiro de Softwares - SE', vacant: true },
       { name: 'Vaga aberta', role: 'Quality Assurance - QA', vacant: true },
     ],
     description: 'Desenvolvimento de software e interfaces',
@@ -401,6 +403,17 @@ const detailedInfo: Record<string, DetailedInfo> = {
         ],
       },
       {
+        title: 'Lead Engineer',
+        description: 'Responsável por liderar tecnicamente iniciativas e guiar a direção de engenharia.',
+        responsibilities: [
+          'Liderar iniciativas técnicas de alto impacto',
+          'Definir direção técnica em projetos estratégicos',
+          'Mentorar Staff Engineers e a equipe',
+          'Alinhar decisões técnicas com o Engineering Manager',
+          'Garantir excelência técnica nas entregas',
+        ],
+      },
+      {
         title: 'Engenheiro de Software (Front-end)',
         description: 'Responsável pela criação das interfaces dos sistemas e aplicativos.',
         responsibilities: [
@@ -693,12 +706,14 @@ export default function App() {
       staff.length +
       (dept.head ? 1 : 0) +
       (dept.manager ? 1 : 0) +
+      (dept.lead ? 1 : 0) +
       (dept.coordinator ? 1 : 0);
     const vacantCount =
       dept.team.filter(p => p.vacant).length +
       staff.filter(p => p.vacant).length +
       (dept.head?.vacant ? 1 : 0) +
       (dept.manager?.vacant ? 1 : 0) +
+      (dept.lead?.vacant ? 1 : 0) +
       (dept.coordinator?.vacant ? 1 : 0);
 
     return (
@@ -721,11 +736,16 @@ export default function App() {
           </div>
         )}
 
-        {(dept.manager || dept.coordinator) && (
+        {(dept.manager || dept.lead || dept.coordinator) && (
           <div className={`mb-2 pb-2 border-b border-slate-200 ${dept.head ? 'mt-1' : ''}`}>
             {dept.manager && (
               <p className={`text-xs ${dept.manager.vacant ? 'text-red-500 italic' : 'text-slate-700 font-medium'} truncate`}>
                 {dept.manager.name}
+              </p>
+            )}
+            {dept.lead && (
+              <p className={`text-xs ${dept.lead.vacant ? 'text-red-500 italic' : 'text-slate-700 font-medium'} truncate`}>
+                {dept.lead.name}
               </p>
             )}
             {dept.coordinator && (
@@ -807,7 +827,7 @@ export default function App() {
                 </div>
               )}
 
-              {(dept.manager || dept.coordinator) && (
+              {(dept.manager || dept.lead || dept.coordinator) && (
                 <div className="mb-6">
                   <h3 className="font-bold text-slate-700 mb-3">Gestão</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -817,6 +837,14 @@ export default function App() {
                           {dept.manager.name}
                         </p>
                         <p className="text-sm text-slate-600">{dept.manager.role}</p>
+                      </div>
+                    )}
+                    {dept.lead && (
+                      <div className="bg-slate-50 rounded-lg p-4">
+                        <p className={`font-medium ${dept.lead.vacant ? 'text-red-500 italic' : 'text-slate-800'}`}>
+                          {dept.lead.name}
+                        </p>
+                        <p className="text-sm text-slate-600">{dept.lead.role}</p>
                       </div>
                     )}
                     {dept.coordinator && (
