@@ -51,7 +51,7 @@ const departments: Department[] = [
     team: [
       { name: 'Ronald Gonçalves', role: 'Engenheiro de Dados - DE' },
       { name: 'Vaga aberta', role: 'Engenheiro de Dados - DE', vacant: true },
-      { name: 'Lara Calude', role: 'DBA' },
+      { name: 'LaraClaud', role: 'DBA' },
       { name: 'Vaga aberta', role: 'DPO - Encarregado de Proteção de Dados', vacant: true },
     ],
     description: 'Indicadores e governança de dados',
@@ -134,7 +134,7 @@ const departments: Department[] = [
       { name: 'Abran Arley', role: 'Engenheiro de Software' },
       { name: 'Ana Beatriz A', role: 'Engenheiro de Software' },
       { name: 'Pedro Gomes', role: 'Engenheiro de Softwares - SE' },
-      { name: 'Lara Calude', role: 'DevOps' },
+      { name: 'LaraClaud', role: 'DevOps' },
       { name: 'Vaga aberta', role: 'Engenheiro de Softwares - SE', vacant: true },
     ],
     description: 'Correções, manutenção e evolução dos sistemas',
