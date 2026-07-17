@@ -10,7 +10,10 @@ interface Person {
 interface Department {
   id: string;
   title: string;
+  head?: Person;
   manager?: Person;
+  coordinator?: Person;
+  staff?: Person[];
   team: Person[];
   description: string;
   responsibilities: string[];
@@ -28,17 +31,17 @@ const departments: Department[] = [
   {
     id: 'products',
     title: 'Produtos',
-    manager: { name: 'Vaga aberta', role: 'Gestor de Produtos - PM', vacant: true },
+    manager: { name: 'Eudócio Dantas', role: 'Gestor de Projetos' },
     team: [
+      { name: 'Vaga aberta', role: 'Gestor de Produtos - PM', vacant: true },
       { name: 'Stephany', role: 'Product Owner - PO' },
       { name: 'Vaga aberta', role: 'Product Owner - PO', vacant: true },
       { name: 'Vaga aberta', role: 'Product Owner - PO', vacant: true },
       { name: 'Cainã Sena', role: 'Especialista em Implementação Técnica' },
       { name: 'Vaga aberta', role: 'Quality Assurance - QA', vacant: true },
-      { name: 'Vaga aberta', role: 'Quality Assurance - QA', vacant: true },
     ],
     description: 'PMO, cronogramas e governança de produtos',
-    responsibilities: ['Gestão de produtos', 'Roadmap', 'Priorização', 'Quality Assurance', 'Implementação Técnica'],
+    responsibilities: ['Gestão de produtos', 'Gestão de projetos', 'Roadmap', 'Priorização', 'Quality Assurance', 'Implementação Técnica'],
     color: 'bg-teal-600',
   },
   {
@@ -59,11 +62,12 @@ const departments: Department[] = [
     id: 'ia',
     title: 'IA - ASO',
     manager: { name: 'Eduardo', role: 'ASO Manager' },
+    coordinator: { name: 'Nayane', role: 'Support Coordinator' },
     team: [
       { name: 'Filipe Paulo', role: 'Engenheiro de Machine Learning - ML' },
-      { name: 'Jônathan Henrique', role: 'Engenheiro de Machine Learning - ML' },
-      { name: 'Nayane', role: 'Engenheiro de Machine Learning - ML' },
       { name: 'Paulo Victor', role: 'Engenheiro de Machine Learning - ML' },
+      { name: 'Vaga aberta', role: 'Engenheiro de Machine Learning - ML', vacant: true },
+      { name: 'Vaga aberta', role: 'Engenheiro de Machine Learning - ML', vacant: true },
       { name: 'Vaga aberta', role: 'AIOps', vacant: true },
     ],
     description: 'Inteligência Artificial e Automação',
@@ -73,24 +77,35 @@ const departments: Department[] = [
   {
     id: 'engineering',
     title: 'Engenharia de Software',
-    manager: { name: 'Eudócio Dantas', role: 'Project Manager' },
+    manager: { name: 'Joanderson Silva', role: 'Engineering Manager' },
+    staff: [
+      { name: 'Rodrigo Henrique', role: 'Staff Engineering' },
+      { name: 'Levi Santos', role: 'Staff Engineering' },
+    ],
     team: [
       { name: 'Anderson Melo', role: 'Engenheiro de Softwares - SE' },
-      { name: 'Joanderson Silva', role: 'Engenheiro de Softwares - SE' },
-      { name: 'Pedro Gomes', role: 'Engenheiro de Softwares - SE' },
-      { name: 'Levi Santos', role: 'Engenheiro de Softwares - SE' },
       { name: 'Lucas Araujo', role: 'Engenheiro de Softwares - SE' },
       { name: 'Marcelo Gomes', role: 'Engenheiro de Softwares - SE' },
       { name: 'Murilo Doria', role: 'Engenheiro de Softwares - SE' },
-      { name: 'Rodrigo Henrique', role: 'Engenheiro de Softwares - SE' },
       { name: 'Rozângela Silva', role: 'Engenheiro de Softwares - SE' },
-      { name: 'Tatyana Medeiros', role: 'UX/UI' },
-      { name: 'Vanessa Galeno', role: 'UX/UI' },
-      { name: 'Aline Vilar', role: 'UX/UI' },
+      { name: 'Vaga aberta', role: 'Quality Assurance - QA', vacant: true },
     ],
     description: 'Desenvolvimento de software e interfaces',
-    responsibilities: ['Desenvolvimento frontend/backend', 'Arquitetura de software', 'UX/UI Design', 'Code review'],
+    responsibilities: ['Desenvolvimento frontend/backend', 'Arquitetura de software', 'Code review', 'Quality Assurance'],
     color: 'bg-cyan-600',
+  },
+  {
+    id: 'ux',
+    title: 'UX / Design',
+    manager: { name: 'Aline Vilar', role: 'Product Design Manager' },
+    team: [
+      { name: 'Tatyana Medeiros', role: 'UX/UI' },
+      { name: 'Vanessa Galeno', role: 'UX/UI' },
+      { name: 'Vaga aberta', role: 'UX/UI', vacant: true },
+    ],
+    description: 'Experiência do usuário e design de produto',
+    responsibilities: ['UX/UI Design', 'Prototipagem', 'Design System', 'Pesquisa com usuários'],
+    color: 'bg-pink-600',
   },
   {
     id: 'gateways',
@@ -111,12 +126,16 @@ const departments: Department[] = [
   {
     id: 'sustentation',
     title: 'Sustentação',
-    manager: { name: 'Matson Leite', role: 'Gestor de Sustentação' },
+    manager: { name: 'Matson Leite', role: 'Sustentation Manager' },
+    staff: [
+      { name: 'Gabriel Queiroga', role: 'Staff Engineering' },
+    ],
     team: [
       { name: 'Abran Arley', role: 'Engenheiro de Software' },
-      { name: 'Gabriel Queiroga', role: 'Engenheiro de Software' },
       { name: 'Ana Beatriz A', role: 'Engenheiro de Software' },
+      { name: 'Pedro Gomes', role: 'Engenheiro de Softwares - SE' },
       { name: 'Lara Calude', role: 'DevOps' },
+      { name: 'Vaga aberta', role: 'Engenheiro de Softwares - SE', vacant: true },
     ],
     description: 'Correções, manutenção e evolução dos sistemas',
     responsibilities: ['Manutenção de sistemas', 'Correção de bugs', 'DevOps', 'Monitoramento'],
@@ -210,7 +229,7 @@ const detailedInfo: Record<string, DetailedInfo> = {
     ],
     relationships: [
       { area: 'Gestor de Suporte', description: 'Recebe alertas sobre problemas recorrentes, falhas operacionais e segurança' },
-      { area: 'Gestor de Sustentação', description: 'Alinhamento sobre correção de bugs, melhorias e estabilidade dos sistemas' },
+      { area: 'Sustentation Manager', description: 'Alinhamento sobre correção de bugs, melhorias e estabilidade dos sistemas' },
       { area: 'Gestor de Produtos', description: 'Alinhamento entre estratégia de produto e capacidade tecnológica' },
       { area: 'Arquiteto de Software', description: 'Validação das decisões arquiteturais e direcionamento técnico' },
       { area: 'Gestor de Gateways e Processamento', description: 'Acompanhamento de performance e estabilidade das aplicações críticas de pagamento' },
@@ -252,15 +271,15 @@ const detailedInfo: Record<string, DetailedInfo> = {
         ],
       },
       {
-        title: 'Quality Assurance (QA)',
-        description: 'Responsável pela garantia da qualidade do software.',
+        title: 'Gestor de Projetos',
+        description: 'Responsável pela gestão de projetos e coordenação de squads.',
         responsibilities: [
-          'Prevenção de defeitos durante o desenvolvimento',
-          'Validação das regras de negócio',
-          'Execução de testes manuais e automatizados',
-          'Testes de regressão',
-          'Trabalhar junto com Produto e Engenharia',
-          'Melhora contínua do processo de desenvolvimento',
+          'Coordenar equipes multidisciplinares',
+          'Gerenciar cronogramas e entregas',
+          'Garantir alinhamento entre tecnologia e negócio',
+          'Acompanhar métricas de performance',
+          'Facilitar comunicação entre áreas',
+          'Trabalhar em conjunto com os Product Owners',
         ],
       },
       {
@@ -360,14 +379,25 @@ const detailedInfo: Record<string, DetailedInfo> = {
     ],
     roles: [
       {
-        title: 'Project Manager',
-        description: 'Responsável pela gestão de projetos e coordenação de squads.',
+        title: 'Engineering Manager',
+        description: 'Responsável pela liderança técnica e gestão da equipe de Engenharia de Software.',
         responsibilities: [
-          'Coordenar equipes multidisciplinares',
-          'Gerenciar cronogramas e entregas',
-          'Garantir alinhamento entre tecnologia e negócio',
-          'Acompanhar métricas de performance',
-          'Facilitar comunicação entre áreas',
+          'Liderar a equipe de engenheiros de software',
+          'Garantir qualidade técnica das entregas',
+          'Apoiar evolução técnica e carreira da equipe',
+          'Alinhar execução técnica com prioridades de produto',
+          'Facilitar code review e boas práticas de desenvolvimento',
+        ],
+      },
+      {
+        title: 'Staff Engineering',
+        description: 'Responsável por liderança técnica individual, arquitetura e mentoria da equipe.',
+        responsibilities: [
+          'Definir e evoluir arquitetura de software',
+          'Mentorar engenheiros da equipe',
+          'Resolver problemas técnicos complexos',
+          'Estabelecer padrões e boas práticas',
+          'Apoiar o Engineering Manager nas decisões técnicas',
         ],
       },
       {
@@ -396,6 +426,48 @@ const detailedInfo: Record<string, DetailedInfo> = {
         ],
       },
       {
+        title: 'Quality Assurance (QA)',
+        description: 'Responsável pela garantia da qualidade do software.',
+        responsibilities: [
+          'Prevenção de defeitos durante o desenvolvimento',
+          'Validação das regras de negócio',
+          'Execução de testes manuais e automatizados',
+          'Testes de regressão',
+          'Trabalhar junto com Produto e Engenharia',
+          'Melhora contínua do processo de desenvolvimento',
+        ],
+      },
+    ],
+    relationships: [
+      { area: 'Produto (PO / PM / Gestor de Projetos)', description: 'Definição de features, prioridades e cronogramas' },
+      { area: 'UX / Design', description: 'Recebe designs e protótipos para implementação' },
+      { area: 'Suporte Técnico', description: 'Recebe feedbacks de problemas em produção' },
+      { area: 'Sustentação', description: 'Recebe bugs para correção' },
+      { area: 'CTO', description: 'Validação técnica e direcionamento estratégico' },
+    ],
+  },
+  ux: {
+    overview: 'A área de UX / Design da Confrapag é responsável pela experiência do usuário e pelo design de interfaces dos produtos digitais. Atua na pesquisa com usuários, prototipagem, definição de fluxos e criação de interfaces usáveis e consistentes, em parceria com Produtos e Engenharia.',
+    objectives: [
+      'Garantir experiências claras e usáveis nos produtos digitais',
+      'Criar e evoluir o Design System da empresa',
+      'Definir fluxos de navegação e protótipos de alta fidelidade',
+      'Alinhar design com objetivos de negócio e prioridades de produto',
+      'Apoiar Engenharia na implementação fiel das interfaces',
+    ],
+    roles: [
+      {
+        title: 'Product Design Manager',
+        description: 'Responsável pela liderança de design de produto e pela estratégia de UX/UI.',
+        responsibilities: [
+          'Definir a visão e os padrões de design de produto',
+          'Liderar a equipe de UX/UI',
+          'Alinhar design com roadmap de produto',
+          'Garantir consistência visual e de experiência',
+          'Priorizar iniciativas de pesquisa e melhoria de usabilidade',
+        ],
+      },
+      {
         title: 'UX/UI Designer',
         description: 'Responsável pela experiência e interface do usuário.',
         responsibilities: [
@@ -408,10 +480,9 @@ const detailedInfo: Record<string, DetailedInfo> = {
       },
     ],
     relationships: [
-      { area: 'Produto (PO / PM)', description: 'Definição de features e prioridades' },
-      { area: 'Suporte Técnico', description: 'Recebe feedbacks de problemas em produção' },
-      { area: 'Sustentação', description: 'Recebe bugs para correção' },
-      { area: 'CTO', description: 'Validação técnica e direcionamento estratégico' },
+      { area: 'Produtos', description: 'Alinhamento de requisitos, jornada e priorização' },
+      { area: 'Engenharia de Software', description: 'Entrega de designs e suporte à implementação' },
+      { area: 'CTO', description: 'Direcionamento estratégico e validação de iniciativas' },
     ],
   },
   sustentation: {
@@ -427,7 +498,7 @@ const detailedInfo: Record<string, DetailedInfo> = {
     ],
     roles: [
       {
-        title: 'Gestor de Sustentação',
+        title: 'Sustentation Manager',
         description: 'Responsável pela gestão estratégica e técnica da área.',
         responsibilities: [
           'Metrificação e gestão de bugs',
@@ -446,7 +517,7 @@ const detailedInfo: Record<string, DetailedInfo> = {
           'Correção de bugs',
           'Implementação de melhorias nos sistemas',
           'Ajustes em aplicações existentes',
-          'Execução das demandas distribuídas pelo Gestor de Sustentação',
+          'Execução das demandas distribuídas pelo Sustentation Manager',
         ],
       },
       {
@@ -616,8 +687,19 @@ export default function App() {
   };
 
   const DepartmentCard = ({ dept }: { dept: Department }) => {
-    const teamCount = dept.team.length + (dept.manager ? 1 : 0);
-    const vacantCount = dept.team.filter(p => p.vacant).length + (dept.manager?.vacant ? 1 : 0);
+    const staff = dept.staff ?? [];
+    const teamCount =
+      dept.team.length +
+      staff.length +
+      (dept.head ? 1 : 0) +
+      (dept.manager ? 1 : 0) +
+      (dept.coordinator ? 1 : 0);
+    const vacantCount =
+      dept.team.filter(p => p.vacant).length +
+      staff.filter(p => p.vacant).length +
+      (dept.head?.vacant ? 1 : 0) +
+      (dept.manager?.vacant ? 1 : 0) +
+      (dept.coordinator?.vacant ? 1 : 0);
 
     return (
       <div
@@ -630,11 +712,27 @@ export default function App() {
           <ChevronRight className="w-3 h-3 text-slate-400 flex-shrink-0 mt-0.5" />
         </div>
 
-        {dept.manager && (
-          <div className="mb-2 pb-2 border-b border-slate-200">
-            <p className={`text-xs ${dept.manager.vacant ? 'text-red-500 italic' : 'text-slate-700 font-medium'} truncate`}>
-              {dept.manager.name}
+        {dept.head && (
+          <div className="mb-1">
+            <p className="text-[10px] text-slate-400 uppercase tracking-wide">Head</p>
+            <p className={`text-xs ${dept.head.vacant ? 'text-red-500 italic' : 'text-slate-700 font-medium'} truncate`}>
+              {dept.head.name}
             </p>
+          </div>
+        )}
+
+        {(dept.manager || dept.coordinator) && (
+          <div className={`mb-2 pb-2 border-b border-slate-200 ${dept.head ? 'mt-1' : ''}`}>
+            {dept.manager && (
+              <p className={`text-xs ${dept.manager.vacant ? 'text-red-500 italic' : 'text-slate-700 font-medium'} truncate`}>
+                {dept.manager.name}
+              </p>
+            )}
+            {dept.coordinator && (
+              <p className={`text-xs ${dept.coordinator.vacant ? 'text-red-500 italic' : 'text-slate-700 font-medium'} truncate`}>
+                {dept.coordinator.name}
+              </p>
+            )}
           </div>
         )}
 
@@ -697,14 +795,54 @@ export default function App() {
                 <h2 className="text-2xl font-bold text-slate-800">Equipe</h2>
               </div>
 
-              {dept.manager && (
+              {dept.head && (
                 <div className="mb-6">
-                  <h3 className="font-bold text-slate-700 mb-3">Gestor</h3>
+                  <h3 className="font-bold text-slate-700 mb-3">Head</h3>
                   <div className="bg-slate-50 rounded-lg p-4">
-                    <p className={`font-medium ${dept.manager.vacant ? 'text-red-500 italic' : 'text-slate-800'}`}>
-                      {dept.manager.name}
+                    <p className={`font-medium ${dept.head.vacant ? 'text-red-500 italic' : 'text-slate-800'}`}>
+                      {dept.head.name}
                     </p>
-                    <p className="text-sm text-slate-600">{dept.manager.role}</p>
+                    <p className="text-sm text-slate-600">{dept.head.role}</p>
+                  </div>
+                </div>
+              )}
+
+              {(dept.manager || dept.coordinator) && (
+                <div className="mb-6">
+                  <h3 className="font-bold text-slate-700 mb-3">Gestão</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {dept.manager && (
+                      <div className="bg-slate-50 rounded-lg p-4">
+                        <p className={`font-medium ${dept.manager.vacant ? 'text-red-500 italic' : 'text-slate-800'}`}>
+                          {dept.manager.name}
+                        </p>
+                        <p className="text-sm text-slate-600">{dept.manager.role}</p>
+                      </div>
+                    )}
+                    {dept.coordinator && (
+                      <div className="bg-slate-50 rounded-lg p-4">
+                        <p className={`font-medium ${dept.coordinator.vacant ? 'text-red-500 italic' : 'text-slate-800'}`}>
+                          {dept.coordinator.name}
+                        </p>
+                        <p className="text-sm text-slate-600">{dept.coordinator.role}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {dept.staff && dept.staff.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="font-bold text-slate-700 mb-3">Staff ({dept.staff.length})</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {dept.staff.map((person, index) => (
+                      <div key={index} className="bg-slate-50 rounded-lg p-3">
+                        <p className={`font-medium text-sm ${person.vacant ? 'text-red-500 italic' : 'text-slate-800'}`}>
+                          {person.name}
+                        </p>
+                        <p className="text-xs text-slate-600">{person.role}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
