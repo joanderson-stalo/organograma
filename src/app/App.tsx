@@ -67,7 +67,6 @@ const departments: Department[] = [
     team: [
       { name: 'Paulo Victor', role: 'Engenheiro de Machine Learning - ML' },
       { name: 'Vaga aberta', role: 'Engenheiro de Machine Learning - ML', vacant: true },
-      { name: 'Vaga aberta', role: 'Engenheiro de Machine Learning - ML', vacant: true },
       { name: 'Vaga aberta', role: 'AIOps', vacant: true },
     ],
     description: 'Inteligência Artificial e Automação',
@@ -115,7 +114,6 @@ const departments: Department[] = [
     team: [
       { name: 'Tatyana Medeiros', role: 'UX/UI' },
       { name: 'Vanessa Galeno', role: 'UX/UI' },
-      { name: 'Vaga aberta', role: 'UX/UI', vacant: true },
     ],
     description: 'Experiência do usuário e design de produto',
     responsibilities: ['UX/UI Design', 'Prototipagem', 'Design System', 'Pesquisa com usuários'],
@@ -146,7 +144,6 @@ const departments: Department[] = [
       { name: 'Ana Beatriz A', role: 'Engenheiro de Software' },
       { name: 'Pedro Gomes', role: 'Engenheiro de Softwares - SE' },
       { name: 'LaraClaud', role: 'DevOps' },
-      { name: 'Vaga aberta', role: 'Engenheiro de Softwares - SE', vacant: true },
       { name: 'Vaga aberta', role: 'Engenheiro de Softwares - SE', vacant: true },
     ],
     description: 'Correções, manutenção e evolução dos sistemas',
@@ -1060,7 +1057,7 @@ export default function App() {
         {/* Áreas independentes (sem vínculo ao CTO) */}
         {departments.some((dept) => dept.reportsToCto === false) && (
           <div className="flex flex-col items-center gap-4">
-            <p className="text-sm font-medium text-slate-500 uppercase tracking-wide">?</p>
+            <p className="text-sm font-medium text-slate-500 uppercase tracking-wide">Em migração para o COO</p>
             <div className="flex justify-center gap-4 flex-wrap">
               {departments.filter((dept) => dept.reportsToCto === false).map((dept) => (
                 <DepartmentCard key={dept.id} dept={dept} />
