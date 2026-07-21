@@ -93,13 +93,12 @@ const departments: Department[] = [
     title: 'Engenharia de Software',
     manager: { name: 'Joanderson Silva', role: 'Engineering Manager' },
     lead: { name: 'Rodrigo Henrique', role: 'Lead Engineer' },
-    staff: [
-      { name: 'Levi Santos', role: 'Staff Engineering' },
-      { name: 'Marcelo Gomes', role: 'Staff Engineering' },
-    ],
     team: [
       { name: 'Anderson Melo', role: 'Engenheiro de Softwares - SE' },
+      { name: 'Gabriel Queiroga', role: 'Engenheiro de Softwares - SE' },
+      { name: 'Levi Santos', role: 'Engenheiro de Softwares - SE' },
       { name: 'Lucas Araujo', role: 'Engenheiro de Softwares - SE' },
+      { name: 'Marcelo Gomes', role: 'Engenheiro de Softwares - SE' },
       { name: 'Murilo Doria', role: 'Engenheiro de Softwares - SE' },
       { name: 'Rozângela Silva', role: 'Engenheiro de Softwares - SE' },
       { name: 'Vaga aberta', role: 'Engenheiro de Softwares - SE', vacant: true },
@@ -142,14 +141,12 @@ const departments: Department[] = [
     id: 'sustentation',
     title: 'Sustentação',
     manager: { name: 'Matson Leite', role: 'Sustentation Manager' },
-    staff: [
-      { name: 'Gabriel Queiroga', role: 'Staff Engineering' },
-    ],
     team: [
       { name: 'Abran Arley', role: 'Engenheiro de Software' },
       { name: 'Ana Beatriz A', role: 'Engenheiro de Software' },
       { name: 'Pedro Gomes', role: 'Engenheiro de Softwares - SE' },
       { name: 'LaraClaud', role: 'DevOps' },
+      { name: 'Vaga aberta', role: 'Engenheiro de Softwares - SE', vacant: true },
       { name: 'Vaga aberta', role: 'Engenheiro de Softwares - SE', vacant: true },
     ],
     description: 'Correções, manutenção e evolução dos sistemas',
@@ -405,23 +402,12 @@ const detailedInfo: Record<string, DetailedInfo> = {
         ],
       },
       {
-        title: 'Staff Engineering',
-        description: 'Responsável por liderança técnica individual, arquitetura e mentoria da equipe.',
-        responsibilities: [
-          'Definir e evoluir arquitetura de software',
-          'Mentorar engenheiros da equipe',
-          'Resolver problemas técnicos complexos',
-          'Estabelecer padrões e boas práticas',
-          'Apoiar o Engineering Manager nas decisões técnicas',
-        ],
-      },
-      {
         title: 'Lead Engineer',
         description: 'Responsável por liderar tecnicamente iniciativas e guiar a direção de engenharia.',
         responsibilities: [
           'Liderar iniciativas técnicas de alto impacto',
           'Definir direção técnica em projetos estratégicos',
-          'Mentorar Staff Engineers e a equipe',
+          'Mentorar a equipe de engenharia',
           'Alinhar decisões técnicas com o Engineering Manager',
           'Garantir excelência técnica nas entregas',
         ],
