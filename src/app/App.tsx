@@ -61,6 +61,19 @@ const departments: Department[] = [
     color: 'bg-blue-600',
   },
   {
+    id: 'security',
+    title: 'Segurança da Informação',
+    manager: { name: 'Vaga aberta', role: 'Chief Information Security Officer', vacant: true },
+    team: [
+      { name: 'Vaga aberta', role: 'Security Engineer', vacant: true },
+      { name: 'Vaga aberta', role: 'Security Engineer', vacant: true },
+      { name: 'Vaga aberta', role: 'Security Engineer', vacant: true },
+    ],
+    description: 'Segurança de dados e proteção da informação',
+    responsibilities: ['Segurança de dados', 'Gestão de riscos', 'Resposta a incidentes', 'Conformidade e auditoria'],
+    color: 'bg-red-700',
+  },
+  {
     id: 'ia',
     title: 'IA - ASO',
     manager: { name: 'Eduardo', role: 'ASO Manager' },
@@ -374,6 +387,46 @@ const detailedInfo: Record<string, DetailedInfo> = {
       { area: 'Sustentação', description: 'Recebe insights e alertas de problemas identificados via dados' },
       { area: 'Suporte Técnico', description: 'Utiliza dados para identificar padrões de problemas e instabilidades' },
       { area: 'CTO', description: 'Recebe métricas, insights estratégicos e alertas operacionais' },
+    ],
+  },
+  security: {
+    overview: 'A área de Segurança da Informação da Confrapag é responsável pela proteção dos dados e sistemas da empresa, garantindo confidencialidade, integridade e disponibilidade das informações. Atua na gestão de riscos, resposta a incidentes, definição de políticas de segurança e conformidade com normas e regulamentações.',
+    objectives: [
+      'Proteger os dados e sistemas da empresa',
+      'Gerir riscos e vulnerabilidades de segurança',
+      'Responder a incidentes de segurança',
+      'Garantir conformidade com normas e regulamentações',
+      'Definir e aplicar políticas de segurança da informação',
+    ],
+    roles: [
+      {
+        title: 'Chief Information Security Officer',
+        description: 'Responsável pela estratégia e liderança de segurança da informação da empresa.',
+        responsibilities: [
+          'Definir a estratégia de segurança da informação',
+          'Liderar a equipe de segurança',
+          'Gerir riscos e políticas de segurança',
+          'Garantir conformidade com normas e regulamentações',
+          'Reportar riscos e incidentes à liderança',
+        ],
+      },
+      {
+        title: 'Security Engineer',
+        description: 'Responsável pela implementação técnica das medidas de segurança.',
+        responsibilities: [
+          'Implementar e manter controles de segurança',
+          'Monitorar e responder a incidentes de segurança',
+          'Realizar testes de vulnerabilidade e hardening',
+          'Automatizar processos de segurança',
+          'Apoiar áreas técnicas em boas práticas de segurança',
+        ],
+      },
+    ],
+    relationships: [
+      { area: 'Ciência de Dados', description: 'Proteção de dados e conformidade com LGPD' },
+      { area: 'Engenharia de Software', description: 'Boas práticas de segurança no desenvolvimento' },
+      { area: 'Sustentação', description: 'Resposta a incidentes e correção de vulnerabilidades' },
+      { area: 'CTO', description: 'Direcionamento estratégico e reporte de riscos' },
     ],
   },
   engineering: {
@@ -1010,6 +1063,10 @@ export default function App() {
     );
   }
 
+  const ctoDepartments = departments.filter((dept) => dept.reportsToCto !== false);
+  const independentDepartments = departments.filter((dept) => dept.reportsToCto === false);
+  const chartWidth = Math.max(1500, ctoDepartments.length * 200);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8 overflow-x-auto">
       <div className="min-w-max mx-auto pb-12">
@@ -1041,10 +1098,10 @@ export default function App() {
 
         {/* Horizontal Line connecting CTO departments */}
         <div className="flex justify-center mb-12">
-          <div className="relative" style={{ width: '1500px' }}>
+          <div className="relative" style={{ width: `${chartWidth}px` }}>
             <div className="absolute top-0 left-12 right-12 h-0.5 bg-slate-400"></div>
             <div className="flex justify-between pt-8 px-4 gap-2">
-              {departments.filter((dept) => dept.reportsToCto !== false).map((dept) => (
+              {ctoDepartments.map((dept) => (
                 <div key={dept.id} className="relative flex flex-col items-center">
                   <div className="absolute left-1/2 -translate-x-1/2 -top-8 w-0.5 h-8 bg-slate-400"></div>
                   <DepartmentCard dept={dept} />
@@ -1055,11 +1112,11 @@ export default function App() {
         </div>
 
         {/* Áreas independentes (sem vínculo ao CTO) */}
-        {departments.some((dept) => dept.reportsToCto === false) && (
+        {independentDepartments.length > 0 && (
           <div className="flex flex-col items-center gap-4">
             <p className="text-sm font-medium text-slate-500 uppercase tracking-wide">Em migração para o COO</p>
             <div className="flex justify-center gap-4 flex-wrap">
-              {departments.filter((dept) => dept.reportsToCto === false).map((dept) => (
+              {independentDepartments.map((dept) => (
                 <DepartmentCard key={dept.id} dept={dept} />
               ))}
             </div>
